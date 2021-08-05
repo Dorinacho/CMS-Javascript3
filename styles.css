@@ -1,3 +1,14 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 30px;
+}
+
+.row {
+    align-items: center;
+}
+
 abbr[title] {
     border-bottom: none !important;
     cursor: inherit !important;
