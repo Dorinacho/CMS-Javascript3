@@ -15,7 +15,7 @@
 
 <body>
     <div class="container">
-        <form id="user-data">
+        <form id="user-data" onsubmit="event.preventDefault();onFormSubmit();">
             <div class="row mb-3" style="margin-top: 20px;">
                 <label for="first-name" class="col-sm-1 col-form-label">
                     First Name
@@ -24,7 +24,7 @@
                     </abbr>
                 </label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="first-name" required pattern="[A-z]" maxlength="35">
+                    <input type="text" class="form-control" id="first-name" required maxlength="35" pattern="[A-Za-z]+" title="Only letters in your name please">
                 </div>
             </div>
             <div class="row mb-3">
@@ -35,7 +35,7 @@
                     </abbr>
                 </label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="last-name" required pattern="[A-z]" maxlength="35">
+                    <input type="text" class="form-control" id="last-name" required maxlength="35" pattern="[A-Za-z]+" title="Only letters in your name please">
                 </div>
             </div>
             <div class="row mb-3">
@@ -61,13 +61,13 @@
                     <option selected>
                         Select
                     </option>
-                    <option value="1">
+                    <option value="Male">
                         Male
                     </option>
-                    <option value="2">
+                    <option value="Female">
                         Female
                     </option>
-                    <option value="3">
+                    <option value="Other">
                         Other
                     </option>
                   </select>
@@ -88,7 +88,7 @@
                 </label>
                 <input type="file" id="image-upload">
             </div>
-            <button type="submit" class="btn btn-primary" onclick="addUser()">
+            <button type="submit" class="btn btn-primary" value="Submit">
                 Add user
             </button>
         </form>
