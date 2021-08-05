@@ -1,0 +1,9 @@
+abbr[title] {
+    border-bottom: none !important;
+    cursor: inherit !important;
+    text-decoration: none !important;
+}
+
+input:invalid {
+    background-color: #fc00001c;
+}

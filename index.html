@@ -19,30 +19,42 @@
             <div class="row mb-3" style="margin-top: 20px;">
                 <label for="first-name" class="col-sm-1 col-form-label">
                     First Name
+                    <abbr title="This field is mandatory" aria-label="required">
+                        *
+                    </abbr>
                 </label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="first-name" required>
+                    <input type="text" class="form-control" id="first-name" required pattern="[A-z]" maxlength="35">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="last-name" class="col-sm-1 col-form-label">
                     Last Name
+                    <abbr title="This field is mandatory" aria-label="required">
+                        *
+                    </abbr>
                 </label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" id="last-name" required>
+                    <input type="text" class="form-control" id="last-name" required pattern="[A-z]" maxlength="35">
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="password" class="col-sm-1 col-form-label">
-                    Password
+                <label for="email" class="col-sm-1 col-form-label">
+                    Email
+                    <abbr title="This field is mandatory" aria-label="required">
+                        *
+                    </abbr>
                 </label>
                 <div class="col-sm-3">
-                    <input type="password" class="form-control" id="password" required>
+                    <input type="email" class="form-control" id="email" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="sex-selector" class="col-sm-1 col-form-label">
                     Sex
+                    <abbr title="This field is mandatory" aria-label="required">
+                        *
+                    </abbr>
                 </label>
                 <div class="col-sm-2">
                     <select class="form-select" id="sex-selector" aria-label="Default select example" required>
@@ -64,6 +76,9 @@
             <div>
                 <label for="birth-date" class="col-sm-1 col-form-label">
                     Birth date
+                    <abbr title="This field is mandatory" aria-label="required">
+                        *
+                    </abbr>
                 </label>
                 <input type="date" id="birth-date" required>
             </div>
@@ -88,7 +103,7 @@
                         First and Last Name
                     </th>
                     <th scope="col">
-                        Password?
+                        Email
                     </th>
                     <th scope="col">
                         Sex
@@ -99,10 +114,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <!-- <th scope="row">
+                <!-- <tr>
+                    <th scope="row">
                         1
-                    </th> -->
+                    </th>
                     <td>
                         Mark
                     </td>
@@ -117,9 +132,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <!-- <th scope="row">
+                    <th scope="row">
                         2
-                    </th> -->
+                    </th>
                     <td>
                         Jacob
                     </td>
@@ -134,9 +149,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <!-- <th scope="row">
+                    <th scope="row">
                         3
-                    </th> -->
+                    </th>
                     <td colspan="2">
                         Larry the Bird
                     </td>
@@ -146,7 +161,7 @@
                     <td>
                         @mdo
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
