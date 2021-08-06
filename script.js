@@ -46,6 +46,6 @@ function resetForm() {
     document.getElementById('first-name').value = "";
     document.getElementById('last-name').value = "";
     document.getElementById('email').value = "";
-    document.getElementById('sex-selector').value = "";
-    document.getElementById('birthdate').value = ";"
+    document.getElementById('sex-selector').value = " -- select an option -- ";
+    document.getElementById('birthdate').value = "";
 }
