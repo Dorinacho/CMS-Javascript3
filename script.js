@@ -1,3 +1,5 @@
+// const moment = require("moment");
+
 function onFormSubmit() {
     var formData = readFormData();
     insertNewRow(formData);
@@ -10,6 +12,7 @@ function readFormData() {
     var email = document.getElementById('email').value;
     var sex = document.getElementById('sex-selector').value;
     var birthdate = document.getElementById('birthdate').value;
+    birthdate = moment(birthdate).format("D MMMM YYYY");
 
     var formData = {
         employeeFullName: firstName + " " + lastName,
@@ -52,6 +55,6 @@ function resetForm() {
 
 
 
-const moment = require('moment');
-const today = moment();
-today.format('DD-MMMM-YYYY');
+// const moment = require('moment');
+// const today = moment();
+// today.format('DD-MMMM-YYYY');
