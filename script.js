@@ -49,3 +49,9 @@ function resetForm() {
     document.getElementById('sex-selector').value = " -- select an option -- ";
     document.getElementById('birthdate').value = "";
 }
+
+
+
+const moment = require('moment');
+const today = moment();
+today.format('DD-MMMM-YYYY');
