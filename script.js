@@ -1,6 +1,7 @@
 function onFormSubmit() {
     var formData = readFormData();
     insertNewRow(formData);
+    resetForm();
 }
 
 function readFormData() {
@@ -39,4 +40,12 @@ function insertNewRow(data) {
     birthdateCell.innerHTML = data.employeeBirthdate;
     let deleteCell = row.insertCell(4);
     deleteCell.innerHTML = `<button onClick="deleteEmployee(this)">Delete</button>`
+}
+
+function resetForm() {
+    document.getElementById('first-name').value = "";
+    document.getElementById('last-name').value = "";
+    document.getElementById('email').value = "";
+    document.getElementById('sex-selector').value = "";
+    document.getElementById('birthdate').value = ";"
 }
