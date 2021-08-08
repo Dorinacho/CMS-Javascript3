@@ -1,10 +1,6 @@
-// const moment = require("moment");
-
 function onFormSubmit() {
     var formData = readFormData();
     insertNewRow(formData);
-    //previewFile();
-
     resetForm();
 }
 
@@ -14,7 +10,7 @@ function readFormData() {
     var email = document.getElementById('email').value;
     var sex = document.getElementById('sex-selector').value;
     var birthdate = document.getElementById('birthdate').value;
-    //var picture = previewFile();
+    var picture = document.getElementById('picture-upload').files[0];
 
     birthdate = moment(birthdate).format("D MMMM YYYY");
 
@@ -23,7 +19,7 @@ function readFormData() {
         employeeEmail: email,
         employeeSex: sex,
         employeeBirthdate: birthdate,
-        // employeePicture: picture
+        employeePicture: picture
     }
     return formData;
 }
@@ -39,20 +35,15 @@ function insertNewRow(data) {
     let table = document.getElementById('employee-table').getElementsByTagName('tbody')[0];
     let row = table.insertRow(-1);
 
-    row.insertCell(0);
-    let pictureCell = document.createElement('img')
-    pictureCell.setAttribute('id', 'picture');
+    let pictureCell = row.insertCell(0);
+    let imgTag = document.createElement('img');
+    pictureCell.appendChild(imgTag);
 
-    let file = document.getElementById('picture-upload').files[0];
-
-    //  pictureCell = data.picture;
     var reader = new FileReader();
-
     reader.onload = (e) => {
-        document.getElementById('picture').src = e.target.result;
+        imgTag.src = e.target.result;
     }
-
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(data.employeePicture);
 
     let nameCell = row.insertCell(1);
     nameCell.innerHTML = data.employeeFullName;
