@@ -39,11 +39,13 @@ function insertNewRow(data) {
     let imgTag = document.createElement('img');
     pictureCell.appendChild(imgTag);
 
-    var reader = new FileReader();
-    reader.onload = (e) => {
-        imgTag.src = e.target.result;
+    if (data.employeePicture != null) {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            imgTag.src = e.target.result;
+        }
+        reader.readAsDataURL(data.employeePicture);
     }
-    reader.readAsDataURL(data.employeePicture);
 
     let nameCell = row.insertCell(1);
     nameCell.innerHTML = data.employeeFullName;
@@ -63,6 +65,7 @@ function resetForm() {
     document.getElementById('email').value = "";
     document.getElementById('sex-selector').value = " -- select an option -- ";
     document.getElementById('birthdate').value = "";
+    document.getElementById('picture-upload').value = "";
 }
 
 // function getBase64Image() {

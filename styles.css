@@ -18,3 +18,11 @@ abbr[title] {
 input:invalid {
     background-color: #fc00001c;
 }
+
+img {
+    width: 70px;
+    height: 70px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 50%;
+}
