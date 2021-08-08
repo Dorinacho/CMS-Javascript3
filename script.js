@@ -3,6 +3,8 @@
 function onFormSubmit() {
     var formData = readFormData();
     insertNewRow(formData);
+    //previewFile();
+
     resetForm();
 }
 
@@ -12,13 +14,16 @@ function readFormData() {
     var email = document.getElementById('email').value;
     var sex = document.getElementById('sex-selector').value;
     var birthdate = document.getElementById('birthdate').value;
+    //var picture = previewFile();
+
     birthdate = moment(birthdate).format("D MMMM YYYY");
 
     var formData = {
         employeeFullName: firstName + " " + lastName,
         employeeEmail: email,
         employeeSex: sex,
-        employeeBirthdate: birthdate
+        employeeBirthdate: birthdate,
+        // employeePicture: picture
     }
     return formData;
 }
@@ -33,15 +38,31 @@ function deleteEmployee(td) {
 function insertNewRow(data) {
     let table = document.getElementById('employee-table').getElementsByTagName('tbody')[0];
     let row = table.insertRow(-1);
-    let nameCell = row.insertCell(0);
+
+    row.insertCell(0);
+    let pictureCell = document.createElement('img')
+    pictureCell.setAttribute('id', 'picture');
+
+    let file = document.getElementById('picture-upload').files[0];
+
+    //  pictureCell = data.picture;
+    var reader = new FileReader();
+
+    reader.onload = (e) => {
+        document.getElementById('picture').src = e.target.result;
+    }
+
+    reader.readAsDataURL(file);
+
+    let nameCell = row.insertCell(1);
     nameCell.innerHTML = data.employeeFullName;
-    let emailCell = row.insertCell(1);
+    let emailCell = row.insertCell(2);
     emailCell.innerHTML = data.employeeEmail;
-    let sexCell = row.insertCell(2);
+    let sexCell = row.insertCell(3);
     sexCell.innerHTML = data.employeeSex;
-    let birthdateCell = row.insertCell(3);
+    let birthdateCell = row.insertCell(4);
     birthdateCell.innerHTML = data.employeeBirthdate;
-    let deleteCell = row.insertCell(4);
+    let deleteCell = row.insertCell(5);
     deleteCell.innerHTML = `<button onClick="deleteEmployee(this)">Delete</button>`
 }
 
@@ -53,7 +74,70 @@ function resetForm() {
     document.getElementById('birthdate').value = "";
 }
 
+// function getBase64Image() {
+//     var img = document.getElementById('picture-upload');
+//     //create an empty canvas
+//     var canvas = document.createElement('canvas');
+//     canvas.width = img.width;
+//     canvas.height = img.height;
 
+//     //copy the image to the canvas
+//     var imgCopy = canvas.getContext('2d');
+//     imgCopy.drawImage(img, 0, 0);
+
+//     //get the data-URL from the canvas
+//     var imgURL = canvas.toDataURL('image/png')
+
+//     return imgURL.replace(/^data:image\/(png|jpg);base64,/, "");
+// }
+
+// function readFile() {
+//     var file = document.getElementById('picture-upload').files[0];
+//     row.insertCell(0);
+//     let pictureCell = document.createElement('img')
+//     pictureCell.setAttribute('id', 'picture');
+//     //  pictureCell = data.picture;
+//     var reader = new FileReader();
+
+//     reader.onload = (e) => {
+//         document.getElementById('picture').src = e.target.result;
+//     }
+
+//     reader.readAsDataURL(file);
+// }
+
+
+// function getPictureURL() {
+//     document.createElement('img');
+//     var pictureURL = document.querySelector('img');
+//     var file = document.getElementById('picture-upload').files[0];
+//     const reader = new FileReader();
+
+//     reader.onload = () => {
+//         pictureURL.src = reader.result;
+//     }
+//     console.log(pictureURL);
+//     if (file) {
+//         reader.readAsDataURL(file);
+//     }
+// }
+
+
+// function previewFile() {
+//     const preview = document.querySelector('img');
+//     const file = document.querySelector('input[type=file]').files[0];
+
+//     const reader = new FileReader();
+
+//     reader.addEventListener("load", function() {
+//         // convert image file to base64 string
+//         preview.src = reader.result;
+//     }, false);
+
+//     if (file) {
+//         reader.readAsDataURL(file);
+//     }
+// }
 
 // const moment = require('moment');
 // const today = moment();
