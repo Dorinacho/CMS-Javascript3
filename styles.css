@@ -2,11 +2,23 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: 30px;
+    align-items: center;
+}
+
+form {
+    background-color: rgb(238, 238, 238);
+    border-radius: 50px;
+    margin: 50px 0 50px 0;
+    width: 800px;
+    max-width: 55%;
+    min-width: 350px;
 }
 
 .row {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    margin: 40px;
 }
 
 abbr[title] {
@@ -17,6 +29,14 @@ abbr[title] {
 
 input:invalid {
     background-color: #fc00001c;
+}
+
+#picture-upload {
+    margin-left: 35px;
+}
+
+button {
+    margin: 20px 40.8% 20px 40.8%;
 }
 
 img {

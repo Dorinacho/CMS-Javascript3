@@ -68,71 +68,16 @@ function resetForm() {
     document.getElementById('picture-upload').value = "";
 }
 
-// function getBase64Image() {
-//     var img = document.getElementById('picture-upload');
-//     //create an empty canvas
-//     var canvas = document.createElement('canvas');
-//     canvas.width = img.width;
-//     canvas.height = img.height;
-
-//     //copy the image to the canvas
-//     var imgCopy = canvas.getContext('2d');
-//     imgCopy.drawImage(img, 0, 0);
-
-//     //get the data-URL from the canvas
-//     var imgURL = canvas.toDataURL('image/png')
-
-//     return imgURL.replace(/^data:image\/(png|jpg);base64,/, "");
+// var today = new Date();
+// var dd = today.getDate();
+// var mm = today.getMonth() + 1; //January is 0!
+// var yyyy = today.getFullYear();
+// if (dd < 10) {
+//     dd = '0' + dd
+// }
+// if (mm < 10) {
+//     mm = '0' + mm
 // }
 
-// function readFile() {
-//     var file = document.getElementById('picture-upload').files[0];
-//     row.insertCell(0);
-//     let pictureCell = document.createElement('img')
-//     pictureCell.setAttribute('id', 'picture');
-//     //  pictureCell = data.picture;
-//     var reader = new FileReader();
-
-//     reader.onload = (e) => {
-//         document.getElementById('picture').src = e.target.result;
-//     }
-
-//     reader.readAsDataURL(file);
-// }
-
-
-// function getPictureURL() {
-//     document.createElement('img');
-//     var pictureURL = document.querySelector('img');
-//     var file = document.getElementById('picture-upload').files[0];
-//     const reader = new FileReader();
-
-//     reader.onload = () => {
-//         pictureURL.src = reader.result;
-//     }
-//     console.log(pictureURL);
-//     if (file) {
-//         reader.readAsDataURL(file);
-//     }
-// }
-
-
-// function previewFile() {
-//     const preview = document.querySelector('img');
-//     const file = document.querySelector('input[type=file]').files[0];
-
-//     const reader = new FileReader();
-
-//     reader.addEventListener("load", function() {
-//         // convert image file to base64 string
-//         preview.src = reader.result;
-//     }, false);
-
-//     if (file) {
-//         reader.readAsDataURL(file);
-//     }
-// }
-
-// const moment = require('moment');
-// const today = moment();
-// today.format('DD-MMMM-YYYY');
+// today = yyyy + '-' + mm + '-' + dd;
+// document.getElementById('birthdate').setAttribute('max', today);
