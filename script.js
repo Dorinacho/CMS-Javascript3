@@ -45,6 +45,8 @@ function insertNewRow(data) {
             imgTag.src = e.target.result;
         }
         reader.readAsDataURL(data.employeePicture);
+    } else {
+        imgTag.src = "./user.png";
     }
 
     let nameCell = row.insertCell(1);
