@@ -56,7 +56,7 @@ function insertNewRow(data) {
     let birthdateCell = row.insertCell(4);
     birthdateCell.innerHTML = data.employeeBirthdate;
     let deleteCell = row.insertCell(5);
-    deleteCell.innerHTML = `<button onClick="deleteEmployee(this)">Delete</button>`
+    deleteCell.innerHTML = `<button class="btn btn-primary" id="delete-button" onClick="deleteEmployee(this)">Delete</button>`
 }
 
 function resetForm() {
