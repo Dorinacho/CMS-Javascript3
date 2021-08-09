@@ -50,3 +50,7 @@ img {
     min-height: 50px;
     border-radius: 50%;
 }
+
+.btn-danger {
+    margin: 0;
+}

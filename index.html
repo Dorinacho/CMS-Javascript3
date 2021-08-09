@@ -10,11 +10,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script src="script.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="./moment/moment.min.js"></script>
 </head>
 
 <body>
+
     <div class="container">
         <form id="employee-data" onsubmit="event.preventDefault();onFormSubmit();">
             <div class="row mb-3">
@@ -94,7 +95,7 @@
                 </label>
                 <input type="file" class="col-sm-4" id="picture-upload">>
             </div>
-            <button type="submit" class="btn btn-primary" value="Submit">
+            <button type="submit" class="btn btn-primary" id="add-button" value="Submit">
                 Add employee
             </button>
         </form>
@@ -127,6 +128,8 @@
             </tbody>
         </table>
     </div>
+
+    <script src="script.js"></script>
     <!-- 
      The core Firebase JS SDK is always required and must be listed first 
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
