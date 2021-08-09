@@ -11,7 +11,7 @@ form {
     margin: 50px 0 50px 0;
     width: 800px;
     max-width: 55%;
-    min-width: 350px;
+    min-width: 500px;
 }
 
 .row {
@@ -37,6 +37,10 @@ input:invalid {
 
 button {
     margin: 20px 40.8% 20px 40.8%;
+}
+
+thead {
+    border-bottom: 3px solid black;
 }
 
 img {
