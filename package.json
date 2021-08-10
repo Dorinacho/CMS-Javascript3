@@ -1,23 +1,23 @@
 {
-    "name": "cms-javascript",
-    "version": "1.0.0",
-    "description": "",
-    "main": "backup.js",
-    "dependencies": {
-        "moment": "^2.29.1"
-    },
-    "devDependencies": {},
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Dorinacho/CMS-Javascript3.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/Dorinacho/CMS-Javascript3/issues"
-    },
-    "homepage": "https://github.com/Dorinacho/CMS-Javascript3#readme"
+  "name": "cms-javascript",
+  "version": "1.0.0",
+  "main": "backup.js",
+  "dependencies": {
+    "firebase": "^8.9.1",
+    "moment": "^2.29.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dorinacho/CMS-Javascript3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dorinacho/CMS-Javascript3/issues"
+  },
+  "homepage": "https://github.com/Dorinacho/CMS-Javascript3#readme",
+  "description": ""
 }

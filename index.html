@@ -9,9 +9,10 @@
     <script href="https://use.fontawesome.com/e06e184448.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="./moment/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
 <body>
@@ -129,14 +130,19 @@
         </table>
     </div>
 
-    <script src="fail.js"></script>
-    <!-- 
-     The core Firebase JS SDK is always required and must be listed first 
+    <script src="firebase.js"></script>
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
 
-     TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries 
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
 
     <script>
         // Your web app's Firebase configuration
@@ -153,7 +159,9 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
-    </script> -->
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
 </body>
 
 </html>
