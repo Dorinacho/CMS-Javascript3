@@ -1,7 +1,3 @@
-const firebase = require("firebase");
-// Required for side-effects
-require("firebase/firestore");
-
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp({
     apiKey: 'AIzaSyBup86geMgrpmK2Dwdue7Re5ZCl5kq8B5o',
@@ -51,18 +47,30 @@ function getData() {
     employee.birthdate = birthdate;
     employee.picture = image;
 
-    localStorage.setItem(email, JSON.stringify(employee));
+    db.collection("employees").add(employee)
+        .then((docRef) => {
+            alert("Employee added with ID: ", docRef.id);
+        })
+        .catch((error) => {
+            alert("Error adding employee: ", error);
+        });
     //  return employee;
 
     addNewRow(employee);
 }
 
 //show all the employees from the local storage
-for (const key in localStorage) {
-    //  console.log(`${key}: ${localStorage.getItem(key)}`);
-    var y = JSON.parse(localStorage.getItem(key));
-    addNewRow(y);
-}
+
+//  console.log(`${key}: ${localStorage.getItem(key)}`);
+db.collection("employees").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        addNewRow(doc);
+    });
+});
+
+
 
 function addNewRow(x) {
     var table = document.querySelector('tbody');
