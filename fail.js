@@ -1,95 +1,80 @@
 function onFormSubmit() {
-    writeDataInLS()
-        // saveData();
-        // debug();
-        //  resetForm();
+    getData();
+    document.getElementById('employee-data').reset();
+    //forEachKey();
 }
 
-var myForm = [];
 
-// function saveData() {
-//     $('form input').each(function() {
-//         myForm.push({
-//             id: this.id,
-//             value: this.value
-//         })
-//     })
-//     localStorage.setItem(localStorage.rowIndex, JSON.stringify(myForm));
-// }
+document.getElementById('picture-upload').addEventListener('change', convertPicture, false);
+var image = './images/user.png';
 
-// function debug() {
-//     // Loop through our array and output the values.  These values should reflect what form inputs we have above and what their current values are.
-//     for (var i = 0; i < myForm.length; i++) {
-//         console.log(myForm[i].id + ': ' + myForm[i].value);
-//     }
-// }
-var employee = () => {
-
-    // if (document.getElementById('add-button').clicked == true) {
-    const employeeData = {
-        firstName: document.getElementById('first-name').value,
-        lastName: document.getElementById('last-name').value,
-        email: document.getElementById('email').value,
-        gender: document.getElementById('gender-selector').value,
-        birthdate: document.getElementById('birthdate').value,
-        picture: document.getElementById('picture-upload').files[0]
+function convertPicture() {
+    var picture = document.getElementById('picture-upload').files[0];
+    if (picture != null) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            image = e.target.result;
+        }
+        reader.readAsDataURL(picture)
     }
-    localStorage.setItem(localStorage.key + 1, JSON.stringify(employeeData));
-    // }
 }
 
-function writeDataInLS() {
+function getData() {
+    var firstName = document.getElementById('first-name').value;
+    var lastName = document.getElementById('last-name').value;
+    var email = document.getElementById('email').value;
+    var gender = document.getElementById('gender-selector').value;
+    var birthdate = document.getElementById('birthdate').value;
+    // var picture = document.getElementById('picture-upload').files[0];
 
-    employee();
+    birthdate = moment(birthdate).format("D MMMM YYYY");
 
-    //employeeData.push();
-    // var formIdentifier = employeeData.email;
+    var employee = new Object();
+    employee.name = firstName + ' ' + lastName;
+    employee.email = email;
+    employee.gender = gender;
+    employee.birthdate = birthdate;
+    employee.picture = image;
+
+    localStorage.setItem(email, JSON.stringify(employee));
+    //  return employee;
+
+    addNewRow(employee);
+}
+
+//show all the employees from the local storage
+for (const key in localStorage) {
+    //  console.log(`${key}: ${localStorage.getItem(key)}`);
+    var y = JSON.parse(localStorage.getItem(key));
+    addNewRow(y);
 }
 
 
-// function displayData() {
+// function addNewEmployee(employeeObj) {
 
-//     for (i = 0; i <= localStorage.length - 1; i++) {
-//         // var formIdentifier = employeeData.email;
-//         var table = document.getElementById('employee-table');
-//         const row = document.createElement('tr');
-//         var employee = JSON.parse(localStorage.getItem(employee.email));
+//     var employee = JSON.parse(localStorage.getItem(employeeObj.email));
+//     addNewRow(employee);
 
-//         if (employee.picture != null) {
-
-//             var reader = new FileReader();
-//             reader.onload = (e) => {
-//                 employee.picture = e.target.result;
-//             }
-//             reader.readAsDataURL(employeeData.picture);
-//         } else {
-//             employee.picture = "./images/user.png";
-//         }
-
-//         row.innerHTML = `<td><img src="${employee.picture}" /></td>
-//         <td>${employee.firstName} ${employee.lastName}</td>
-//         <td>${employee.email}</td>
-//         <td>${employee.gender}</td>
-//         <td>${employee.birthdate}</td>
-//         <td><button class="btn btn-danger" onClick="deleteEmployee(this)">Delete</button></td>`;
-
-//         table.appendChild(row);
-//     }
 // }
 
+function addNewRow(x) {
+    var table = document.querySelector('tbody');
+    const row = document.createElement('tr');
+
+    row.innerHTML = `<td><img src="${x.picture}" /></td>
+        <td>${x.name}</td>
+        <td>${x.email}</td>
+        <td>${x.gender}</td>
+        <td>${x.birthdate}</td>
+        <td><button class="btn btn-danger" onClick="deleteEmployee(this)">Delete</button></td>`;
+
+    table.appendChild(row);
+}
 
 function deleteEmployee(td) {
     if (confirm("Are you sure you want to delete this employee?")) {
+        // JSON.parse(localStorage.removeItem(employeeObj.email));
         row = td.parentElement.parentElement;
         document.getElementById('employee-table').deleteRow(row.rowIndex);
     }
-}
-
-function resetForm() {
-    document.getElementById('first-name').value = "";
-    document.getElementById('last-name').value = "";
-    document.getElementById('email').value = "";
-    document.getElementById('gender-selector').value = " -- select an option -- ";
-    document.getElementById('birthdate').value = "";
-    document.getElementById('picture-upload').value = "";
 }
