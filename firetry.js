@@ -7,6 +7,8 @@ firebase.initializeApp({
 
 //firebase.firestore()
 
+//make table scrollable
+
 var db = firebase.firestore();
 
 function onFormSubmit() {
@@ -46,14 +48,15 @@ function getData() {
     employee.gender = gender;
     employee.birthdate = birthdate;
     employee.picture = image;
+    employee.id = Math.floor(Math.random() * 10000).toString();
 
-    db.collection("employees").add(employee)
-        .then((docRef) => {
-            alert("Employee added with ID: ", docRef.id);
-        })
-        .catch((error) => {
-            alert("Error adding employee: ", error);
-        });
+    db.collection("employees").doc(employee.id).set(employee);
+    // .then(() => {
+    //     alert("Employee added successfully!");
+    // })
+    // .catch(() => {
+    //     alert("Error adding employee!");
+    // });
     //  return employee;
 
     addNewRow(employee);
@@ -61,21 +64,24 @@ function getData() {
 
 //show all the employees from the local storage
 
-//  console.log(`${key}: ${localStorage.getItem(key)}`);
+//window.onload = async function() {
+
 db.collection("employees").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        addNewRow(doc);
+        //doc.id = doc.data().id;
+        // console.log(doc.id, " => ", doc.data().email);
+
+        addNewRow(doc.data());
+
     });
 });
-
-
+//}
 
 function addNewRow(x) {
     var table = document.querySelector('tbody');
     const row = document.createElement('tr');
-
+    row.setAttribute('id', x.id)
     row.innerHTML = `<td><img src="${x.picture}" /></td>
         <td>${x.name}</td>
         <td>${x.email}</td>
@@ -88,8 +94,28 @@ function addNewRow(x) {
 
 function deleteEmployee(td) {
     if (confirm("Are you sure you want to delete this employee?")) {
-        // JSON.parse(localStorage.removeItem(employeeObj.email));
         row = td.parentElement.parentElement;
         document.getElementById('employee-table').deleteRow(row.rowIndex);
+        console.log(row.id);
+        db.collection('employees').doc(row.id).delete().then(() => {
+            console.log("Document successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
     }
+}
+
+function sortByName() {
+    var docRef = db.collection("employees");
+    docRef.orderBy("name");
+    // db.collection("employees").get().then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //         // doc.data() is never undefined for query doc snapshots
+    //         //doc.id = doc.data().id;
+    //         // console.log(doc.id, " => ", doc.data().email);
+
+    //         addNewRow(doc.data());
+
+    //     });
+    // });
 }
