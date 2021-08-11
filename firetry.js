@@ -5,19 +5,16 @@ firebase.initializeApp({
     projectId: 'cms-javascript'
 });
 
-//firebase.firestore()
-
 //make table scrollable
 
-var db = firebase.firestore();
+var db = firebase.firestore().collection("employees");
 
 function onFormSubmit() {
     getData();
     document.getElementById('employee-data').reset();
     document.getElementById('picture-upload').value = "";
-    sortTableByName();
+    sortTableByName(1);
 }
-
 
 document.getElementById('picture-upload').addEventListener('change', convertPicture, false);
 var image = './images/user.png';
@@ -51,7 +48,7 @@ function getData() {
     employee.picture = image;
     employee.id = Math.floor(Math.random() * 10000).toString();
 
-    db.collection("employees").doc(employee.id).set(employee);
+    db.doc(employee.id).set(employee);
     // .then(() => {
     //     alert("Employee added successfully!");
     // })
@@ -64,23 +61,6 @@ function getData() {
     // sortTable();
 }
 
-//show all the employees from the local storage
-
-//window.onload = async function() {
-
-db.collection("employees").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        //doc.id = doc.data().id;
-        // console.log(doc.id, " => ", doc.data().email);
-
-        addNewRow(doc.data());
-
-    });
-    sortTableByName();
-});
-//}
-
 function addNewRow(x) {
     var table = document.querySelector('tbody');
     const row = document.createElement('tr');
@@ -91,7 +71,6 @@ function addNewRow(x) {
         <td>${x.gender}</td>
         <td>${x.birthdate}</td>
         <td><button class="btn btn-danger" onClick="deleteEmployee(this)">Delete</button></td>`;
-
     table.appendChild(row);
 }
 
@@ -106,21 +85,6 @@ function deleteEmployee(td) {
             console.error("Error removing document: ", error);
         });
     }
-}
-
-function sortByName() {
-    var docRef = db.collection("employees");
-    docRef.orderBy("name");
-    // db.collection("employees").get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         // doc.data() is never undefined for query doc snapshots
-    //         //doc.id = doc.data().id;
-    //         // console.log(doc.id, " => ", doc.data().email);
-
-    //         addNewRow(doc.data());
-
-    //     });
-    // });
 }
 
 // search bar
@@ -196,4 +160,35 @@ function sortTableByName(n) {
             }
         }
     }
+}
+
+// window.onload = async function() {   
+db.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        addNewRow(doc.data());
+    })
+}).catch((error) => {
+    console.error("Error getting employees ", error);
+})
+sortTableByName(1);
+
+function clearTable() {
+    var table = document.querySelector('tbody');
+    while (table.hasChildNodes()) {
+        table.removeChild(table.firstChild);
+    }
+}
+
+function filterGender() {
+    clearTable();
+    var gender = document.getElementById('gender-filter').value;
+
+    db.where("gender", "==", gender).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            addNewRow(doc.data());
+        });
+        sortTableByName(1);
+    }).catch((error) => {
+        console.error("Error getting employees ", error);
+    })
 }
