@@ -28,6 +28,7 @@ function convertPicture() {
         }
         reader.readAsDataURL(picture)
     }
+
 }
 
 function getData() {
@@ -61,6 +62,19 @@ function getData() {
     // sortTable();
 }
 
+// window.onload = async function() {  
+function fillTable() {
+    db.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            addNewRow(doc.data());
+            sortTableByName(1);
+        })
+    }).catch((error) => {
+        alert("Error getting employees ", error);
+    })
+
+}
+
 function addNewRow(x) {
     var table = document.querySelector('tbody');
     const row = document.createElement('tr');
@@ -74,15 +88,17 @@ function addNewRow(x) {
     table.appendChild(row);
 }
 
+
+
 function deleteEmployee(td) {
     if (confirm("Are you sure you want to delete this employee?")) {
         row = td.parentElement.parentElement;
         document.getElementById('employee-table').deleteRow(row.rowIndex);
         console.log(row.id);
-        db.collection('employees').doc(row.id).delete().then(() => {
-            console.log("Document successfully deleted!");
+        db.doc(row.id).delete().then(() => {
+            alert("Employee deleted successfully!");
         }).catch((error) => {
-            console.error("Error removing document: ", error);
+            alert("Error removing document: ", error);
         });
     }
 }
@@ -162,15 +178,7 @@ function sortTableByName(n) {
     }
 }
 
-// window.onload = async function() {   
-db.get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        addNewRow(doc.data());
-    })
-}).catch((error) => {
-    console.error("Error getting employees ", error);
-})
-sortTableByName(1);
+
 
 function clearTable() {
     var table = document.querySelector('tbody');
@@ -182,13 +190,44 @@ function clearTable() {
 function filterGender() {
     clearTable();
     var gender = document.getElementById('gender-filter').value;
-
-    db.where("gender", "==", gender).get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            addNewRow(doc.data());
-        });
-        sortTableByName(1);
-    }).catch((error) => {
-        console.error("Error getting employees ", error);
-    })
+    if (gender != "null") {
+        db.where("gender", "==", gender).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                addNewRow(doc.data());
+            });
+            sortTableByName(1);
+        }).catch((error) => {
+            alert("Error filtering by gender", error);
+        })
+    } else {
+        fillTable();
+    }
 }
+
+function filterPicture() {
+    clearTable();
+    var picture = document.getElementById('picture-filter').value;
+    if (picture == "no-picture") {
+        db.where("picture", "==", image).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                addNewRow(doc.data());
+            });
+            sortTableByName(1);
+        }).catch((error) => {
+            alert("Error sorting by picture", error);
+        })
+    } else if (picture == "picture") {
+        db.where("picture", "!=", image).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                addNewRow(doc.data());
+            });
+            sortTableByName(1);
+        }).catch((error) => {
+            alert("Error sorting by picture", error);
+        })
+    } else if (picture == "null") {
+        fillTable();
+    }
+}
+
+fillTable();

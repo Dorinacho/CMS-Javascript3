@@ -39,6 +39,11 @@ button {
     margin: 20px 40.8% 20px 40.8%;
 }
 
+#filters {
+    display: flex;
+    flex-direction: row;
+}
+
 img {
     width: 70px;
     height: 70px;
