@@ -84,7 +84,7 @@ function addNewRow(x) {
         <td>${x.email}</td>
         <td>${x.gender}</td>
         <td>${x.birthdate}</td>
-        <td><button class="btn btn-danger" onClick="deleteEmployee(this)">Delete</button></td>`;
+        <td><button class="btn btn-danger btn-extra" onClick="deleteEmployee(this)">Delete</button></td>`;
     table.appendChild(row);
 }
 
@@ -199,14 +199,16 @@ function filterGender() {
         }).catch((error) => {
             alert("Error filtering by gender", error);
         })
-    } else {
-        fillTable();
     }
+    // else {
+    //     fillTable();
+    // }
 }
 
 function filterPicture() {
     clearTable();
     var picture = document.getElementById('picture-filter').value;
+    //filterPicture();
     if (picture == "no-picture") {
         db.where("picture", "==", image).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -225,9 +227,17 @@ function filterPicture() {
         }).catch((error) => {
             alert("Error sorting by picture", error);
         })
-    } else if (picture == "null") {
-        fillTable();
     }
+    // else if (picture == "null") {
+    //     fillTable();
+    // }
+}
+
+function resetFilters() {
+    document.getElementById('gender-filter').value = 'null';
+    document.getElementById('picture-filter').value = 'null';
+    clearTable();
+    fillTable();
 }
 
 fillTable();

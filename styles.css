@@ -42,6 +42,7 @@ button {
 #filters {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 img {
@@ -52,8 +53,18 @@ img {
     border-radius: 50%;
 }
 
-.btn-danger {
+.btn-extra {
     margin: 0;
+}
+
+.filter {
+    margin: 20px !important;
+}
+
+#reset-button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 5px 10px 5px 10px !important;
 }
 
 .sort-btn {

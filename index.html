@@ -138,8 +138,8 @@
         </div>
 
         <div id='filters'>
-            <div class="row mb-4">
-                <label for="gender-filter" class="col-sm-3 col-form-label">
+            <div class="row mb-4 col-sm-5 filter">
+                <label for="gender-filter" class="col-sm-2 col-form-label">
                     Gender
                 </label>
                 <div class="col-sm-5">
@@ -159,8 +159,8 @@
                   </select>
                 </div>
             </div>
-            <div class="row mb-4">
-                <label for="picture-filter" class="col-sm-3 col-form-label">
+            <div class="row mb-5 col-sm-5 filter">
+                <label for="picture-filter" class="col-sm-2 col-form-label">
                     Picture
                 </label>
                 <div class="col-sm-5">
@@ -177,6 +177,9 @@
                   </select>
                 </div>
             </div>
+            <button type="submit" class="btn btn-primary btn-extra" id="reset-button" onclick="resetFilters();">
+                Reset filters
+            </button>
         </div>
         <table class="table table-striped table-hover" id="employee-table">
             <thead>
