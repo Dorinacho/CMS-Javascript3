@@ -144,7 +144,7 @@
                 </label>
                 <div class="col-sm-5">
                     <select class="form-select" id="gender-filter" aria-label="Default select example" onchange="filterGender();">
-                    <option disabled selected value>
+                    <option value="null">
                          -- select an option -- 
                         </option>
                     <option value="Male">
@@ -155,6 +155,24 @@
                     </option>
                     <option value="Shemale">
                         Shemale
+                    </option>
+                  </select>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="picture-filter" class="col-sm-3 col-form-label">
+                    Picture
+                </label>
+                <div class="col-sm-5">
+                    <select class="form-select" id="picture-filter" aria-label="Default select example" onchange="filterGender();">
+                    <option value="null">
+                         -- select an option -- 
+                        </option>
+                    <option value="Male">
+                        Picture
+                    </option>
+                    <option value="Female">
+                        No picture
                     </option>
                   </select>
                 </div>
