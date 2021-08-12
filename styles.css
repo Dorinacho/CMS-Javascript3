@@ -43,6 +43,7 @@ button {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
 
 img {
@@ -58,6 +59,7 @@ img {
 }
 
 .filter {
+    display: flex;
     margin: 20px !important;
 }
 

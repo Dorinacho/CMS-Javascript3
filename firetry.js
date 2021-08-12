@@ -94,6 +94,7 @@ async function getData() {
 
 // window.onload = async function() {  
 function fillTable() {
+
     db.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             addNewRow(doc.data());
@@ -275,11 +276,32 @@ function filterPicture() {
     }
 }
 
+function filterByDate() {
+    clearTable();
+    var startDate = document.getElementById('start-date').value;
+    var endDate = document.getElementById('end-date').value;
+    if (startDate != null && endDate != null) {
+        db.where("birthdate", ">=", startDate).where("birthdate", "<=", endDate).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                addNewRow(doc.data());
+            });
+            sortTableByName(1);
+        }).catch((error) => {
+            alert("Error filtering by date", error);
+        })
+    }
+}
+
 function resetFilters() {
     document.getElementById('gender-filter').value = 'null';
     document.getElementById('picture-filter').value = 'null';
     clearTable();
     fillTable();
 }
+
+myQuery = db.orderBy('firstName', 'desc').limit(5);
+
+
+
 
 fillTable();
