@@ -9,11 +9,20 @@ firebase.initializeApp({
 
 var db = firebase.firestore().collection("employees");
 
-function onFormSubmit() {
-    getData();
-    document.getElementById('employee-data').reset();
-    document.getElementById('picture-upload').value = "";
-    sortTableByName(1);
+async function onFormSubmit() {
+    if (document.getElementById('add-button').value == 'Submit') {
+        var data = await getData();
+        addNewRow(data);
+        //addNewRow(data);
+        document.getElementById('employee-data').reset();
+        document.getElementById('picture-upload').value = "";
+        // sortTableByName(1);
+    } else {
+        await editData();
+        document.getElementById('employee-data').reset();
+        document.getElementById('picture-upload').value = "";
+        //sortTableByName(1);
+    }
 }
 
 document.getElementById('picture-upload').addEventListener('change', convertPicture, false);
@@ -28,10 +37,9 @@ function convertPicture() {
         }
         reader.readAsDataURL(picture)
     }
-
 }
 
-function getData() {
+async function editData() {
     var firstName = document.getElementById('first-name').value;
     var lastName = document.getElementById('last-name').value;
     var email = document.getElementById('email').value;
@@ -41,25 +49,53 @@ function getData() {
 
     birthdate = moment(birthdate).format("D MMMM YYYY");
 
-    var employee = new Object();
-    employee.name = firstName + ' ' + lastName;
-    employee.email = email;
-    employee.gender = gender;
-    employee.birthdate = birthdate;
-    employee.picture = image;
-    employee.id = Math.floor(Math.random() * 10000).toString();
+    var employee = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        gender: gender,
+        birthdate: birthdate,
+        picture: image
+    };
 
-    db.doc(employee.id).set(employee);
-    // .then(() => {
-    //     alert("Employee added successfully!");
-    // })
-    // .catch(() => {
-    //     alert("Error adding employee!");
-    // });
-    //  return employee;
+    await db.doc(employee.email).set(employee);
 
-    addNewRow(employee);
-    // sortTable();
+    if (employeeID == employee.email) {
+        row.innerHTML = `<td><img src="${employee.picture}" /></td>
+        <td>${employee.firstName} ${employee.lastName}</td>
+        <td>${employee.email}</td>
+        <td>${employee.gender}</td>
+        <td>${employee.birthdate}</td>
+        <td>
+            <button class="btn btn-danger btn-extra" onClick="deleteEmployee(this)">Delete</button>
+            <button type="button" class="btn btn-primary btn-extra" onClick="editEmployee(this)">Edit</button>
+        </td>`;
+
+    }
+}
+
+async function getData() {
+    var firstName = document.getElementById('first-name').value;
+    var lastName = document.getElementById('last-name').value;
+    var email = document.getElementById('email').value;
+    var gender = document.getElementById('gender-selector').value;
+    var birthdate = document.getElementById('birthdate').value;
+    // var picture = document.getElementById('picture-upload').files[0];
+
+    birthdate = moment(birthdate).format("D MMMM YYYY");
+
+    var employee = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        gender: gender,
+        birthdate: birthdate,
+        picture: image
+    };
+
+    await db.doc(employee.email).set(employee);
+
+    return employee;
 }
 
 // window.onload = async function() {  
@@ -72,35 +108,54 @@ function fillTable() {
     }).catch((error) => {
         alert("Error getting employees ", error);
     })
-
 }
 
 function addNewRow(x) {
     var table = document.querySelector('tbody');
     const row = document.createElement('tr');
-    row.setAttribute('id', x.id)
+    row.setAttribute('id', x.email)
     row.innerHTML = `<td><img src="${x.picture}" /></td>
-        <td>${x.name}</td>
+        <td>${x.firstName} ${x.lastName}</td>
         <td>${x.email}</td>
         <td>${x.gender}</td>
         <td>${x.birthdate}</td>
-        <td><button class="btn btn-danger btn-extra" onClick="deleteEmployee(this)">Delete</button></td>`;
+        <td>
+            <button class="btn btn-danger btn-extra" onClick="deleteEmployee(this)">Delete</button>
+            <button type="button" class="btn btn-primary btn-extra" onClick="editEmployee(this)">Edit</button>
+        </td>`;
     table.appendChild(row);
 }
 
-
-
-function deleteEmployee(td) {
+async function deleteEmployee(td) {
     if (confirm("Are you sure you want to delete this employee?")) {
         row = td.parentElement.parentElement;
         document.getElementById('employee-table').deleteRow(row.rowIndex);
         console.log(row.id);
-        db.doc(row.id).delete().then(() => {
-            alert("Employee deleted successfully!");
-        }).catch((error) => {
-            alert("Error removing document: ", error);
-        });
+        await db.doc(row.id).delete();
     }
+}
+
+var employeeID
+
+function editEmployee(td) {
+    row = td.parentElement.parentElement;
+    console.log(row.id);
+    db.doc(row.id).get().then((doc) => {
+        if (doc.exists) {
+            document.getElementById('first-name').value = doc.data().firstName;
+            document.getElementById('last-name').value = doc.data().lastName;
+            document.getElementById('email').value = doc.data().email;
+            document.getElementById('gender-selector').value = doc.data().gender;
+            document.getElementById('birthdate').value = doc.data().birthdate;
+            birthdate = moment(birthdate).format("D MMM YYYY");
+            document.getElementById('picture-upload').files[0] = doc.data().picture;
+            employeeID = doc.data().email;
+        }
+    });
+    var button = document.getElementById('add-button');
+    button.innerHTML = 'Edit employee';
+    button.value = 'edit';
+
 }
 
 // search bar
@@ -178,8 +233,6 @@ function sortTableByName(n) {
     }
 }
 
-
-
 function clearTable() {
     var table = document.querySelector('tbody');
     while (table.hasChildNodes()) {
@@ -200,9 +253,6 @@ function filterGender() {
             alert("Error filtering by gender", error);
         })
     }
-    // else {
-    //     fillTable();
-    // }
 }
 
 function filterPicture() {
@@ -210,7 +260,7 @@ function filterPicture() {
     var picture = document.getElementById('picture-filter').value;
     //filterPicture();
     if (picture == "no-picture") {
-        db.where("picture", "==", image).get().then((querySnapshot) => {
+        db.where("picture", "==", image).get((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 addNewRow(doc.data());
             });
@@ -225,12 +275,9 @@ function filterPicture() {
             });
             sortTableByName(1);
         }).catch((error) => {
-            alert("Error sorting by picture", error);
+            alert("Error filtering by picture", error);
         })
     }
-    // else if (picture == "null") {
-    //     fillTable();
-    // }
 }
 
 function resetFilters() {
