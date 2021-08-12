@@ -16,7 +16,7 @@ async function onFormSubmit() {
         //addNewRow(data);
         document.getElementById('employee-data').reset();
         document.getElementById('picture-upload').value = "";
-        // sortTableByName(1);
+        sortTableByName(1);
     } else {
         await editData();
         document.getElementById('employee-data').reset();
@@ -45,10 +45,6 @@ async function editData() {
     var email = document.getElementById('email').value;
     var gender = document.getElementById('gender-selector').value;
     var birthdate = document.getElementById('birthdate').value;
-    // var picture = document.getElementById('picture-upload').files[0];
-
-    birthdate = moment(birthdate).format("D MMMM YYYY");
-
     var employee = {
         firstName: firstName,
         lastName: lastName,
@@ -60,12 +56,15 @@ async function editData() {
 
     await db.doc(employee.email).set(employee);
 
+    //convert the date after is stored in firebase
+    var date = moment(employee.birthdate).format("D MMMM YYYY");
+
     if (employeeID == employee.email) {
         row.innerHTML = `<td><img src="${employee.picture}" /></td>
         <td>${employee.firstName} ${employee.lastName}</td>
         <td>${employee.email}</td>
         <td>${employee.gender}</td>
-        <td>${employee.birthdate}</td>
+        <td>${date}</td>
         <td>
             <button class="btn btn-danger btn-extra" onClick="deleteEmployee(this)">Delete</button>
             <button type="button" class="btn btn-primary btn-extra" onClick="editEmployee(this)">Edit</button>
@@ -80,10 +79,6 @@ async function getData() {
     var email = document.getElementById('email').value;
     var gender = document.getElementById('gender-selector').value;
     var birthdate = document.getElementById('birthdate').value;
-    // var picture = document.getElementById('picture-upload').files[0];
-
-    birthdate = moment(birthdate).format("D MMMM YYYY");
-
     var employee = {
         firstName: firstName,
         lastName: lastName,
@@ -92,7 +87,6 @@ async function getData() {
         birthdate: birthdate,
         picture: image
     };
-
     await db.doc(employee.email).set(employee);
 
     return employee;
@@ -114,11 +108,13 @@ function addNewRow(x) {
     var table = document.querySelector('tbody');
     const row = document.createElement('tr');
     row.setAttribute('id', x.email)
+    var date = x.birthdate;
+
     row.innerHTML = `<td><img src="${x.picture}" /></td>
         <td>${x.firstName} ${x.lastName}</td>
         <td>${x.email}</td>
         <td>${x.gender}</td>
-        <td>${x.birthdate}</td>
+        <td>${moment(date).format("D MMMM YYYY")}</td>
         <td>
             <button class="btn btn-danger btn-extra" onClick="deleteEmployee(this)">Delete</button>
             <button type="button" class="btn btn-primary btn-extra" onClick="editEmployee(this)">Edit</button>
@@ -147,7 +143,6 @@ function editEmployee(td) {
             document.getElementById('email').value = doc.data().email;
             document.getElementById('gender-selector').value = doc.data().gender;
             document.getElementById('birthdate').value = doc.data().birthdate;
-            birthdate = moment(birthdate).format("D MMM YYYY");
             document.getElementById('picture-upload').files[0] = doc.data().picture;
             employeeID = doc.data().email;
         }
@@ -258,9 +253,8 @@ function filterGender() {
 function filterPicture() {
     clearTable();
     var picture = document.getElementById('picture-filter').value;
-    //filterPicture();
     if (picture == "no-picture") {
-        db.where("picture", "==", image).get((querySnapshot) => {
+        db.where("picture", "==", image).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 addNewRow(doc.data());
             });
@@ -269,6 +263,7 @@ function filterPicture() {
             alert("Error sorting by picture", error);
         })
     } else if (picture == "picture") {
+
         db.where("picture", "!=", image).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 addNewRow(doc.data());
