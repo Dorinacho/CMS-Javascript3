@@ -14,19 +14,17 @@
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
 
-    <script>
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        var firebaseConfig = {
-            apiKey: "AIzaSyBup86geMgrpmK2Dwdue7Re5ZCl5kq8B5o",
-            authDomain: "cms-javascript.firebaseapp.com",
-            projectId: "cms-javascript",
-            storageBucket: "cms-javascript.appspot.com",
-            messagingSenderId: "803607698021",
-            appId: "1:803607698021:web:76b682d1e5ccef20b0c48c",
-            measurementId: "G-DYJYNMZHL7"
-        };
-    </script>
+    <script>// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+  apiKey: "AIzaSyBup86geMgrpmK2Dwdue7Re5ZCl5kq8B5o",
+  authDomain: "cms-javascript.firebaseapp.com",
+  projectId: "cms-javascript",
+  storageBucket: "cms-javascript.appspot.com",
+  messagingSenderId: "803607698021",
+  appId: "1:803607698021:web:76b682d1e5ccef20b0c48c",
+  measurementId: "G-DYJYNMZHL7"
+};</script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
@@ -42,9 +40,9 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script src="./moment/moment.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-</head>
+    <script src="/moment.min.21fc457d.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles.8986bff4.css">
+<script src="/styles.8986bff4.js"></script></head>
 
 <body>
 
@@ -56,54 +54,46 @@
             <div class="row mb-3">
                 <label for="first-name" class="col-sm-3 col-form-label">
                     First Name
-                    <abbr 
-                        title="This field is mandatory" 
-                        aria-label="required">
+                    <abbr title="This field is mandatory" aria-label="required">
                         *
                     </abbr>
                 </label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" id="first-name" required maxlength="35" pattern="[A-Za-z]+" title="Only letters in your name please">
+                    <input type="text" class="form-control" id="first-name" required="" maxlength="35" pattern="[A-Za-z]+" title="Only letters in your name please">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="last-name" class="col-sm-3 col-form-label">
                     Last Name
-                    <abbr 
-                        title="This field is mandatory" 
-                        aria-label="required">
+                    <abbr title="This field is mandatory" aria-label="required">
                         *
                     </abbr>
                 </label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" id="last-name" required maxlength="35" pattern="[A-Za-z]+" title="Only letters in your name please">
+                    <input type="text" class="form-control" id="last-name" required="" maxlength="35" pattern="[A-Za-z]+" title="Only letters in your name please">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="email" class="col-sm-3 col-form-label">
                     Email
-                    <abbr 
-                        title="This field is mandatory" 
-                        aria-label="required">
+                    <abbr title="This field is mandatory" aria-label="required">
                         *
                     </abbr>
                 </label>
                 <div class="col-sm-5">
-                    <input type="email" class="form-control" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                    <input type="email" class="form-control" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="gender-selector" class="col-sm-3 col-form-label">
                     Gender
-                    <abbr 
-                        title="This field is mandatory" 
-                        aria-label="required">
+                    <abbr title="This field is mandatory" aria-label="required">
                         *
                     </abbr>
                 </label>
                 <div class="col-sm-5">
-                    <select class="form-select" id="gender-selector" aria-label="Default select example" required>
-                    <option disabled selected value>
+                    <select class="form-select" id="gender-selector" aria-label="Default select example" required="">
+                    <option disabled="" selected="" value="">
                          -- select an option -- 
                         </option>
                     <option value="Male">
@@ -125,7 +115,7 @@
                         *
                     </abbr>
                 </label>
-                <input type="date" class="col-sm-4" id="birthdate" required title="Please choose your birthdate" />
+                <input type="date" class="col-sm-4" id="birthdate" required="" title="Please choose your birthdate">
             </div>
             <div class="row mb-3">
                 <label for="picture-upload" class="col-sm-2 col-form-label">
@@ -142,10 +132,10 @@
         </form>
 
         <div class="form-outline">
-            <input type="search" id="search-bar" class="form-control" placeholder="Search employee.." aria-label="Search" title="Type in a name" onkeyup="myFunction()" />
+            <input type="search" id="search-bar" class="form-control" placeholder="Search employee.." aria-label="Search" title="Type in a name" onkeyup="myFunction()">
         </div>
 
-        <div id='filters'>
+        <div id="filters">
             <div class="col-sm-2 filter">
                 <label for="gender-filter" class="col-sm-4 col-form-label">
                     Gender
@@ -190,13 +180,13 @@
                 <label for="birthdate" class="col-sm-6 col-form-label">
                     Start date
                 </label>
-                <input type="date" class="col-sm-9" id="start-date" title="Please choose the start date" />
+                <input type="date" class="col-sm-9" id="start-date" title="Please choose the start date">
             </div>
             <div class="col-sm-2 filter">
                 <label for="birthdate" class="col-sm-6 col-form-label">
                     End date
                 </label>
-                <input type="date" class="col-sm-9" id="end-date" title="Please choose the end date" />
+                <input type="date" class="col-sm-9" id="end-date" title="Please choose the end date">
             </div>
             <button type="submit" class="btn btn-primary btn-extra" id="sort-button" onclick="filterByDate();">
                 Sort
@@ -254,7 +244,7 @@
         </table>
     </div>
 
-    <script src="firetry.js"></script>
+    <script src="/firetry.57300678.js"></script>
 
 </body>
 

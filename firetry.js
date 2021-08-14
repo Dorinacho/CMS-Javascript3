@@ -5,7 +5,27 @@ firebase.initializeApp({
     projectId: 'cms-javascript'
 });
 
+// import 'regenerator-runtime/runtime';
+// import axios from 'axios';
 //make table scrollable
+//add reset button for the form data
+
+const BASE_URL = 'https://api.coindesk.com/v1/bpi/currentprice/EUR.json';
+
+const getTodoItems = async() => {
+    try {
+        const response = await axios.get(`${BASE_URL}/todos?_limit=5`);
+
+        const todoItems = response.data;
+
+        console.log(`GET: Here's the list of todos`, todoItems);
+
+        return todoItems;
+    } catch (errors) {
+        console.error(errors);
+    }
+};
+
 
 var db = firebase.firestore().collection("employees");
 
@@ -149,7 +169,7 @@ function editEmployee(td) {
         }
     });
     var button = document.getElementById('add-button');
-    button.innerHTML = 'Edit employee';
+    button.innerHTML = 'Update employee';
     button.value = 'edit';
 
 }
@@ -295,13 +315,13 @@ function filterByDate() {
 function resetFilters() {
     document.getElementById('gender-filter').value = 'null';
     document.getElementById('picture-filter').value = 'null';
+    document.getElementById('start-date').value = '';
+    document.getElementById('end-date').value = '';
     clearTable();
     fillTable();
 }
 
 myQuery = db.orderBy('firstName', 'desc').limit(5);
-
-
 
 
 fillTable();
