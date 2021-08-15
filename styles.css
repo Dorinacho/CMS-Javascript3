@@ -81,3 +81,7 @@ img {
 thead {
     margin-bottom: 3px;
 }
+
+#crypto {
+    font-weight: bold;
+}

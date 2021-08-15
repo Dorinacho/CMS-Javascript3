@@ -5,7 +5,8 @@
     "dependencies": {
         "axios": "^0.21.1",
         "firebase": "^8.9.1",
-        "moment": "^2.29.1"
+        "moment": "^2.29.1",
+        "passport-coinbase": "^0.1.4"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
